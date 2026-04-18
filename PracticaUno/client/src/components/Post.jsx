@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useParams, Link } from "react-router";
 export default function Post(){
 const {id_post} = useParams();
 const [post, setPost] = useState({});
@@ -10,11 +10,15 @@ fetch('http://localhost:8000/posts/'+id_post)
 },[id_post]);
 return(
 <>
+<div className="card">
+<Link to={"/author/"+post.id_author}>
 {post.img && <img src={'.'+post.img} alt="Imagen del post"></img>}
 <h1>{post.title}</h1>
 <h2>Escrito por: {post.id_author}</h2>
 <h2>{post.date}</h2>
 <p>{post.text}</p>
+</Link>
+</div>
 </>
 );
 }

@@ -22,11 +22,11 @@ export function CardList({ entries, filteredText }) {
 }
 
 
-export function Card({title, date, img, id_post}){
+export function Card({title, date, image, id_post}){
 return (
 <div className="card">
 <Link to={"/blog/"+id_post}>
-<img src={img} alt="Imagen"/>
+<img src={image} alt="image"/>
 <h1>{title}</h1>
 <p>{date.substring(0,10)}</p>
 </Link>

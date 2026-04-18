@@ -6,6 +6,7 @@ import { Home } from './home';
 import { Blog } from './blog';
 import { Contact } from './contact';
 import Post from './components/Post';
+import Author from './components/Author';
 
 
 
@@ -27,6 +28,7 @@ function App() {
       <Route path="/blog" element={<Blog></Blog>}></Route>
       <Route path="/contact" element = {<Contact></Contact>}></Route>
       <Route path="/blog/:id_post" element={<Post></Post>}></Route>
+      <Route path="/author/:id_author" element={<Author></Author>}></Route>
 
     </Routes>
     </>
