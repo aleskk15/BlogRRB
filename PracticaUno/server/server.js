@@ -79,7 +79,7 @@ db.one('SELECT * FROM author WHERE id_author=$1', [req.params.id_author])
 const multer = require('multer');
 // definición de la carpeta donde se guardarán las imágenes a subir y el nombre que se les asignará
 const storage = multer.diskStorage({
-destination: '../src/assets/',
+destination: '../client/src/assets/',
 filename: function (req, file, cb){
 cb(null, file.originalname)
 }

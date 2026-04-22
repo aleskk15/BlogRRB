@@ -11,7 +11,7 @@ fetch('http://localhost:8000/posts/'+id_post)
 return(
 <>
 <div className="card">
-<Link to={"/author/"+post.id_author}>
+<Link to={"/login"}>
 {post.img && <img src={'.'+post.img} alt="Imagen del post"></img>}
 <h1>{post.title}</h1>
 <h2>Escrito por: {post.id_author}</h2>

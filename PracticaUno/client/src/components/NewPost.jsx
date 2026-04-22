@@ -25,9 +25,8 @@ body: formInfo,
 }
 return(
 <div className="form">
-<input type='text' value={title} onChange={handleTitleChange}></input>
-<input type='text'></input>
-<input type='file' onChange={handleFile}></input>
+<input type='text' value={title} placeholder="Titulo" onChange={handleTitleChange}></input>
+<input type='file' placeholder="Inserta imagen" onChange={handleFile}></input>
 <input type='submit' value='Agregar' onClick={handleSubmit}></input>
 </div>
 );
