@@ -7,6 +7,7 @@ import { Blog } from './blog';
 import { Contact } from './contact';
 import Post from './components/Post';
 import Author from './components/Author';
+import Login from './components/Login'
 
 
 
@@ -29,6 +30,7 @@ function App() {
       <Route path="/contact" element = {<Contact></Contact>}></Route>
       <Route path="/blog/:id_post" element={<Post></Post>}></Route>
       <Route path="/author/:id_author" element={<Author></Author>}></Route>
+      <Route path='/login' element={<Login></Login>}></Route>
 
     </Routes>
     </>
