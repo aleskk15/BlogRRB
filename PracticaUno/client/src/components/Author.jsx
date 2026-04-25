@@ -6,7 +6,7 @@ const {id_author} = useParams();
 const [Author, setAuthor] = useState({});
 const navigate = useNavigate
 useEffect(() => {
-  fetch('http://localhost:8000/authors/'+id_author, {
+  fetch(import.meta.env.VITE_API_URL+ '/authors/'+id_author, {
     method: "GET",
     credentials: "include"
   })

@@ -4,7 +4,7 @@ export default function Post(){
 const {id_post} = useParams();
 const [post, setPost] = useState({});
 useEffect(() => {
-fetch('http://localhost:8000/posts/'+id_post)
+fetch(import.meta.env.VITE_API_URL+ 'id_post')
 .then( (res) => res.json())
 .then( (data) => setPost(data));
 },[id_post]);

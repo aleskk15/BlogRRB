@@ -1,26 +1,28 @@
+
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const app = express();
 const session = require ('express-session')
 const pgSession = require('connect-pg-simple')(session);
 
-app.use(cors({origin: 'http://localhost:5173', credentials: true}));
+app.use(cors({origin: process.env.FRONTEND_URL, credentials: true}));
 app.use(express.json());
 app.get('/hello'
 , (req, res) => {
 res.json( { message: "Hola" } );
 });
-app.listen(8000, () => {
+app.listen(process.env.PORT, () => {
 console.log('Servidor corriéndose en el puerto 8000');
 });
 
 const pgp = require('pg-promise')();
 const cn = {
-    host: 'localhost',
-    port: 5432,
-    database: 'blog',
-    user: 'postgres',
-    password: '123',
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    database: process.env.DB_NAME,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
     allowExitOnIdle: true
 };
 const db = pgp(cn);
@@ -28,9 +30,9 @@ const db = pgp(cn);
 /* SESSION */
 app.use(session({
   store: new pgSession({
-    pgPromise : db,  // DB object from pg-promise
+    pgPromise : db,  
   }),
-  secret: 'hola',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: { maxAge: 10*60*1000, secure: false},
