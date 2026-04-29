@@ -174,30 +174,12 @@ app.get('/authors/:id_author', authenticateSession, (req, res) => {
 
 
 
-app.get('/seed', async (req, res) => {
-    try {
-        const fs = require('fs');
-        const path = require('path');
-        
-        // 1. Leer el archivo
-        let sql = fs.readFileSync(path.join(__dirname, '../db/init.sql'), 'utf8');
-
-        // 2. LIMPIEZA CRÍTICA: Elimina comentarios y caracteres especiales que rompen el formato
-        // Esto quita líneas que empiezan con -- y espacios en blanco raros
-        sql = sql
-            .replace(/--.*$/gm, '')      // Quita comentarios de una línea
-            .replace(/\r\n/g, '\n')      // Normaliza saltos de línea
-            .replace(/\t/g, ' ')         // Cambia tabs por espacios
-            .split('\n')                 // Divide por líneas
-            .filter(line => line.trim() !== '') // Quita líneas vacías
-            .join(' ');                  // Junta todo en una sola línea limpia
-
-        // 3. Ejecutar
-        await db.none(sql);
-        
-        res.send('Base de datos inicializada correctamente');
-    } catch (error) {
-        console.error("DETALLE DEL ERROR:", error); // Esto aparecerá en los Logs de Render
-        res.status(500).send('Error: ' + error.message);
-    }
+// GET seed — ejecuta init.sql para inicializar la base de datos
+app.get('/seed', (req, res) => {
+    const fs = require('fs');
+    const path = require('path');
+    const sql = fs.readFileSync(path.join(__dirname, '../db/init.sql'), 'utf8');
+    db.none(sql)
+        .then(() => res.send('Base de datos inicializada correctamente'))
+        .catch((error) => res.status(500).send('Error: ' + error.message));
 });
