@@ -174,12 +174,25 @@ app.get('/authors/:id_author', authenticateSession, (req, res) => {
 
 
 
-// GET seed — ejecuta init.sql para inicializar la base de datos
-app.get('/seed', (req, res) => {
-    const fs = require('fs');
-    const path = require('path');
-    const sql = fs.readFileSync(path.join(__dirname, '../db/init.sql'), 'utf8');
-    db.none(sql)
-        .then(() => res.send('Base de datos inicializada correctamente'))
-        .catch((error) => res.status(500).send('Error: ' + error.message));
+app.get('/seed', async (req, res) => {
+    try {
+        const fs = require('fs');
+        const path = require('path');
+        
+        // Leemos el archivo
+        const filePath = path.join(__dirname, '../db/init.sql');
+        let sql = fs.readFileSync(filePath, 'utf8');
+
+        // LIMPIEZA TOTAL: Eliminamos el Byte Order Mark (BOM) y caracteres nulos \x00
+        // Esto soluciona el error "invalid message format"
+        sql = sql.replace(/^\uFEFF/, '').replace(/\0/g, '');
+
+        // Ejecutar en la base de datos
+        await db.none(sql);
+        
+        res.send('Base de datos inicializada correctamente');
+    } catch (error) {
+        console.error("DETALLE DEL ERROR:", error);
+        res.status(500).send('Error: ' + error.message);
+    }
 });
