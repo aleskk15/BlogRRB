@@ -172,6 +172,8 @@ app.get('/authors/:id_author', authenticateSession, (req, res) => {
   .catch((error) => console.log('ERROR: ', error));
 });
 
+
+
 // GET seed — ejecuta init.sql para inicializar la base de datos
 app.get('/seed', (req, res) => {
     const fs = require('fs');
