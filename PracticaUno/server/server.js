@@ -171,3 +171,13 @@ app.get('/authors/:id_author', authenticateSession, (req, res) => {
   .then((data) => res.json(data))
   .catch((error) => console.log('ERROR: ', error));
 });
+
+// GET seed — ejecuta init.sql para inicializar la base de datos
+app.get('/seed', (req, res) => {
+    const fs = require('fs');
+    const path = require('path');
+    const sql = fs.readFileSync(path.join(__dirname, '../db/init.sql'), 'utf8');
+    db.none(sql)
+        .then(() => res.send('Base de datos inicializada correctamente'))
+        .catch((error) => res.status(500).send('Error: ' + error.message));
+});
